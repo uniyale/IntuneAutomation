@@ -354,7 +354,8 @@ function Format-AutopilotDeviceInfo {
         PurchaseOrderId       = $Device.purchaseOrderIdentifier
         EnrollmentState       = $Device.enrollmentState
         LastContactedDateTime = if ($Device.lastContactedDateTime) { 
-            ([DateTime]::Parse($Device.lastContactedDateTime)).ToString("yyyy-MM-dd HH:mm:ss") 
+            # Corrected line: Use ParseExact with a specific format
+            [DateTime]::ParseExact($Device.lastContactedDateTime, 'MM/dd/yyyy HH:mm:ss', [System.Globalization.CultureInfo]::InvariantCulture).ToString("yyyy-MM-dd HH:mm:ss") 
         }
         else { 
             "Never" 
